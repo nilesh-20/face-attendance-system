@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block body %}
+<h1>Live camera</h1>
+<div class="cols live"><div><img class="feed" src="{{ url_for('video_feed') }}" alt="Camera feed">
+<form method="post" action="{{ url_for('toggle') }}"><button>{{ 'Pause recognition' if on else 'Resume recognition' }}</button></form></div>
+<section><h2>Just marked</h2><ul id="ev" class="muted"><li>Waiting for faces...</li></ul></section></div>
+<script>
+async function poll(){try{const r=await fetch("{{ url_for('events') }}");const d=await r.json();
+document.getElementById("ev").innerHTML=d.length?d.map(x=>"<li>"+x+"</li>").join(""):"<li>Waiting for faces...</li>";}catch(e){}}
+poll();setInterval(poll,2000);</script>{% endblock %}

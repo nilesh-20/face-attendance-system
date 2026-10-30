@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Face Attendance</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+{% if session.admin %}
+<nav><b class="brand">Face Attendance</b>
+<a href="{{ url_for('dashboard') }}">Today</a><a href="{{ url_for('live') }}">Live camera</a>
+<a href="{{ url_for('attendance') }}">Records</a><a href="{{ url_for('users') }}">Users</a>
+<a href="{{ url_for('register') }}">Register face</a><a class="right" href="{{ url_for('logout') }}">Sign out</a></nav>{% endif %}
+<main>
+{% with m = get_flashed_messages() %}{% for x in m %}<p class="flash">{{ x }}</p>{% endfor %}{% endwith %}
+{% block body %}{% endblock %}
+</main></body></html>

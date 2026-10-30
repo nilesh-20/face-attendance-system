@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block body %}
+<h1>Records</h1>
+<form class="bar" method="get"><label>Day<input type="date" name="date" value="{{ date }}"></label>
+<label>Month<input type="month" name="month" value="{{ month }}"></label><button>Show</button>
+<a class="btn" href="{{ url_for('export', month=month, fmt='csv') }}">Download CSV</a>
+<a class="btn" href="{{ url_for('export', month=month, fmt='xlsx') }}">Download Excel</a></form>
+<div class="cols"><section><h2>{{ date }}</h2>
+{% if rows %}<table><tr><th>Roll</th><th>Name</th><th>Time</th></tr>
+{% for r in rows %}<tr><td>{{ r.roll_no }}</td><td>{{ r.name }}</td><td>{{ r.time }}</td></tr>{% endfor %}</table>
+{% else %}<p class="muted">No attendance on this day.</p>{% endif %}</section>
+<section><h2>{{ month }} summary <small class="muted">({{ days }} session days)</small></h2>
+<table><tr><th>Roll</th><th>Name</th><th>Present</th><th>%</th></tr>
+{% for r in summary %}<tr><td>{{ r.roll_no }}</td><td>{{ r.name }}</td><td>{{ r.present }}</td><td class="{{ 'warn' if r.pct < 75 and days else '' }}">{{ r.pct }}%</td></tr>{% endfor %}</table></section></div>{% endblock %}

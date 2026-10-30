@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}
+<h1>Registered users ({{ users|length }})</h1>
+{% if users %}<table><tr><th>Roll</th><th>Name</th><th>Registered</th><th></th></tr>
+{% for u in users %}<tr><td>{{ u.roll_no }}</td><td>{{ u.name }}</td><td>{{ u.created_at }}</td>
+<td><form method="post" action="{{ url_for('delete', uid=u.id) }}" onsubmit="return confirm('Remove this user and all their attendance records?')"><button class="danger">Remove</button></form></td></tr>{% endfor %}</table>
+{% else %}<p class="muted">No users yet. <a href="{{ url_for('register') }}">Register the first face.</a></p>{% endif %}{% endblock %}

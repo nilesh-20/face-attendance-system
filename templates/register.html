@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block body %}
+<h1>Register a face</h1>
+<div class="cols live"><form method="post" class="card"><label>Roll number<input name="roll_no" required></label>
+<label>Full name<input name="name" required></label>
+<p class="muted">Look at the camera in good light. Capturing takes about 5 seconds; turn your head slightly between samples.</p>
+<button>Capture and save</button></form>
+<div><img class="feed" src="{{ url_for('video_feed') }}" alt="Camera feed"></div></div>{% endblock %}

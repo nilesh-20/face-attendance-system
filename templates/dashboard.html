@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block body %}
+<h1>Attendance for {{ today }}</h1>
+<div class="stats">
+<div><span class="n">{{ present }}<small> / {{ total }}</small></span>present</div>
+<div><span class="n">{{ total - present }}</span>not yet marked</div>
+<div><span class="n warn">{{ unknown }}</span>unknown faces seen</div></div>
+<div class="cols">
+<section><h2>Present</h2>
+{% if rows %}<table><tr><th>Roll</th><th>Name</th><th>Time</th><th>Match</th></tr>
+{% for r in rows %}<tr><td>{{ r.roll_no }}</td><td>{{ r.name }}</td><td>{{ r.time }}</td><td>{{ '%.0f' % (r.confidence*100) }}%</td></tr>{% endfor %}</table>
+{% else %}<p class="muted">No one has been marked yet. Open <a href="{{ url_for('live') }}">Live camera</a> to start.</p>{% endif %}</section>
+<section><h2>Not yet marked</h2>
+{% if absent %}<table>{% for r in absent %}<tr><td>{{ r.roll_no }}</td><td>{{ r.name }}</td></tr>{% endfor %}</table>
+{% else %}<p class="muted">Everyone registered is present.</p>{% endif %}</section></div>{% endblock %}
